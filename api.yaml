@@ -1,0 +1,287 @@
+swagger: '2.0'
+
+info:
+  description: the API of 'flag'
+  version: 1.0.0
+  title: API for 'flag'
+    
+host: api.example.com
+basePath: /api
+tags:
+  - name: countdown
+    description: 倒计时
+  - name: goal
+    description: 目标
+  - name: sharing
+    description: 动态
+  - name: user
+    description: 我的
+    
+schemes:
+  - https
+  - http
+
+paths:
+  /user/signup/:
+    post:
+      tags:
+      - user
+      description: 注册
+      parameters:
+      - name: data
+        in: header
+        description: signup
+        type: string
+        required: true
+      - name: info
+        in: body
+        schema:
+            required: 
+              - username
+              - password
+              - phone number
+            properties:
+              username: 
+                description: 用户名
+                type: string
+              password:
+                description: 密码
+                type: string
+              phone number:
+                description: 手机号码
+                type: integer
+      responses:
+        200:
+          description: OK 
+        400:
+          description: not enough data
+        500: 
+          description: server wrong
+  
+  /login/:
+    post:
+      tags:
+        - user
+      summary: login
+      description: login for account
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: data
+          in: body
+          description: post data
+          schema:
+            required:
+              - username
+              - password
+            properties:
+              username:
+                type: string
+                description: username
+              password:
+                type: string
+                description: password
+      responses:
+        200:
+          description: successfully login
+          schema:
+            type: object
+            required:
+              - cookie
+              - token
+            properties:   #性质
+              cookie: 
+                type: string
+              token:
+                type: string
+              msg:
+                type: string
+                description: 登录结果信息
+              username:
+                type: string
+                description: 用户名
+              password:
+                type: string
+                description: 密码
+        400:
+          description: 参数不全
+          schema:
+            type: object
+            properties:
+              msg:
+                type: string
+        401:
+          description: 用户名或密码错误
+          schema:
+            type: object
+            properties:
+              msg:
+                type: string
+                
+  /countdown/term/:
+    post:
+      tags:
+        - countdown
+      description: display countdown
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: cookie
+          in: header
+          description: userinfo
+          require: true
+          type: string
+        - name: time
+          in: header
+          description: time
+          require: true
+          type: integer
+      responses:
+        200:
+          description: login successfully
+          schema:
+            required:
+              - userid
+              - time
+            properties:
+              userid:
+                type: string
+              time:
+                type: integer
+              msg:
+                type: string
+          500:
+            description: server wrong
+
+  /countdown/life/:
+    post:
+      tags:
+        - countdown
+      description: display countdown in another way
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: cookie
+          in: header
+          description: userinfo
+          require: true
+          type: string
+        - name: time
+          in: header
+          description: time
+          require: true
+          type: integer
+      responses:
+        200:
+          description: login successfully
+          schema:
+            required:
+              - userid
+              - time
+            properties:
+              userid:
+                type: string
+              time:
+                type: integer
+              msg:
+                type: string
+          500:
+            description: server wrong
+              
+  /goal/flag/: 
+    post:
+      tags: 
+        - goal
+      description: show your flag
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters: 
+        - name: flag
+          in: body
+          type: integer
+          schema:
+            required:
+              - name
+              - content
+              - time
+            properties:
+              name:
+                type: string
+              content:
+                type: string
+              completeness:
+                type: string
+              msg:
+                type: string
+      responses:
+        200:
+          description: creat successfully
+        400:
+          description: not enough data
+ 
+  /goal/ddl/: 
+    post:
+      tags: 
+        - goal
+      description: show your ddl
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters: 
+        - name: ddl
+          in: body
+          type: integer
+          schema:
+            required:
+              - name
+              - content
+              - time
+            properties:
+              name:
+                type: string
+              content:
+                type: string
+              completeness:
+                type: string
+              msg:
+                type: string
+      responses:
+        200:
+          description: creat successfully
+        400:
+          description: not enough data 
+
+  /user/personal data/:
+    get:
+      tags:
+        - user
+      description: account information
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      schema:
+        properties:
+          account:
+            type: string
+          flag(past):
+            type: object
+          flag(now):
+            type: object
+          information:
+            type: string
+      responses:
+        200:
+          description: OK
+        500:
+          description: server wrong
+      
