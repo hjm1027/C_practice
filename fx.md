@@ -128,7 +128,7 @@ Upgrade-Insecure-Requests：升级不安全的请求，意思是会在加载 htt
 HTTPS 是以安全为目标的 HTTP 通道，所以在 HTTPS 承载的页面上不允许出现 HTTP 请求，一旦出现就是提示或报错。
 
 ### 4. User-Agent (浏览器名称)
-User-Agent：是客户浏览器的名称，以后会详细讲。
+User-Agent：是客户浏览器的名称。
 
 ### 5. Accept (传输文件类型)
 Accept：指浏览器或其他客户端可以接受的MIME（Multipurpose Internet Mail Extensions（多用途互联网邮件扩展））文件类型，服务器可以根据它判断并返回适当的文件格式。
@@ -165,7 +165,7 @@ Content-Type：POST请求里用来表示的内容类型。
 举例：Content-Type = Text/XML; charset=gb2312：
 指明该请求的消息体中包含的是纯文本的XML类型的数据，字符编码采用“gb2312”。
 
-### 常用的响应报头
+## 常用的响应报头
 理论上所有的响应头信息都应该是回应请求头的。但是服务端为了效率，安全，还有其他方面的考虑，会添加相对应的响应头信息，从上图可以看到：
 
 ### 1. Cache-Control：must-revalidate, no-cache, private。
